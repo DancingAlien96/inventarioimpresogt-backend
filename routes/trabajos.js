@@ -117,7 +117,7 @@ router.delete('/:id', async (req, res) => {
 // Obtener estadísticas de trabajos
 router.get('/estadisticas/resumen', async (req, res) => {
   try {
-    const trabajos = await Trabajo.find({ estado: 'Completado' });
+    const trabajos = await Trabajo.find({ estado: { $in: ['Completado', 'Entregado'] } });
     
     const totalVentas = trabajos.reduce((sum, t) => sum + t.precioVenta, 0);
     const totalCostos = trabajos.reduce((sum, t) => sum + t.costoProduccion, 0);
