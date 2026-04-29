@@ -72,8 +72,8 @@ import trabajoRoutes from './routes/trabajos.js';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productoRoutes);
-app.use('/api/movimientos', movimientoRoutes);
-app.use('/api/trabajos', trabajoRoutes);
+app.use('/api/compras', movimientoRoutes);
+app.use('/api/ventas', trabajoRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
