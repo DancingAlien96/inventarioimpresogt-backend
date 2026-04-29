@@ -9,7 +9,15 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors());
+const allowedOrigins = [
+  'https://inventarioimpresogt-frontend.vercel.app', // Cambia esto por tu dominio real de Vercel
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json());
 
 // Función para crear usuarios por defecto
