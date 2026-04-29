@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
     await trabajo.populate('materiales.producto', 'nombre');
     await trabajo.populate('usuario', 'nombre');
     
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
+    await sendTelegramNotification(`✅ Se ha hecho una nueva venta. Revisa en el link ya proporcionado.`);
     res.status(201).json({
       ...trabajo.toObject(),
       ganancia: trabajo.ganancia(),
@@ -88,7 +88,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Trabajo no encontrado' });
     }
     
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
+    await sendTelegramNotification(`✅ Se ha hecho una nueva venta. Revisa en el link ya proporcionado.`);
     
     res.json({
       ...trabajo.toObject(),
@@ -107,7 +107,7 @@ router.delete('/:id', async (req, res) => {
     if (!trabajo) {
       return res.status(404).json({ message: 'Trabajo no encontrado' });
     }
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
+    await sendTelegramNotification(`✅ Se ha hecho una nueva venta. Revisa en el link ya proporcionado.`);
     res.json({ message: 'Trabajo eliminado' });
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar trabajo', error: error.message });

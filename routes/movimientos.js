@@ -2,7 +2,6 @@ import express from 'express';
 import Movimiento from '../models/Movimiento.js';
 import Producto from '../models/Producto.js';
 import { verificarToken } from '../middleware/auth.js';
-import { sendTelegramNotification } from '../services/telegramService.js';
 
 const router = express.Router();
 
@@ -59,7 +58,6 @@ router.post('/', async (req, res) => {
     await movimiento.populate('producto', 'nombre');
     await movimiento.populate('usuario', 'nombre');
 
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.status(201).json(movimiento);
   } catch (error) {
     res.status(400).json({ message: 'Error al crear movimiento', error: error.message });
@@ -133,7 +131,6 @@ router.put('/:id', async (req, res) => {
     await movimiento.populate('producto', 'nombre');
     await movimiento.populate('usuario', 'nombre');
 
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.json(movimiento);
   } catch (error) {
     res.status(400).json({ message: 'Error al actualizar movimiento', error: error.message });
@@ -165,7 +162,6 @@ router.delete('/:id', async (req, res) => {
     await producto.save();
     await movimiento.deleteOne();
 
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.json({ message: 'Movimiento eliminado' });
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar movimiento', error: error.message });

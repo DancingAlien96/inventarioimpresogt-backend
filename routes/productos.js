@@ -1,7 +1,6 @@
 import express from 'express';
 import Producto from '../models/Producto.js';
 import { verificarToken } from '../middleware/auth.js';
-import { sendTelegramNotification } from '../services/telegramService.js';
 
 const router = express.Router();
 
@@ -36,7 +35,6 @@ router.post('/', async (req, res) => {
   try {
     const producto = new Producto(req.body);
     await producto.save();
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.status(201).json(producto);
   } catch (error) {
     res.status(400).json({ message: 'Error al crear producto', error: error.message });
@@ -54,7 +52,6 @@ router.put('/:id', async (req, res) => {
     if (!producto) {
       return res.status(404).json({ message: 'Producto no encontrado' });
     }
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.json(producto);
   } catch (error) {
     res.status(400).json({ message: 'Error al actualizar producto', error: error.message });
@@ -68,7 +65,6 @@ router.delete('/:id', async (req, res) => {
     if (!producto) {
       return res.status(404).json({ message: 'Producto no encontrado' });
     }
-    await sendTelegramNotification(`✅ Se ha producido un cambio en Inventario ImpresoGT.\nRevisa la plataforma aquí:\nhttps://inventarioimpresogt-frontend.vercel.app/`);
     res.json({ message: 'Producto eliminado' });
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar producto', error: error.message });
