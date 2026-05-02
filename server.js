@@ -69,11 +69,13 @@ import authRoutes from './routes/auth.js';
 import productoRoutes from './routes/productos.js';
 import movimientoRoutes from './routes/movimientos.js';
 import trabajoRoutes from './routes/trabajos.js';
+import compraRoutes from './routes/compras.js';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/productos', productoRoutes);
-app.use('/api/compras', movimientoRoutes);
+app.use('/api/movimientos', movimientoRoutes);
 app.use('/api/ventas', trabajoRoutes);
+app.use('/api/compras', compraRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
