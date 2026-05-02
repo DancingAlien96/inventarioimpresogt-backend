@@ -12,7 +12,7 @@ router.use(verificarToken);
 router.get('/', async (req, res) => {
   try {
     const movimientos = await Movimiento.find()
-      .populate('producto', 'nombre')
+      .populate('producto', 'nombre precioCompra')
       .populate('usuario', 'nombre')
       .sort({ createdAt: -1 })
       .limit(100);
@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
     });
 
     await movimiento.save();
-    await movimiento.populate('producto', 'nombre');
+    await movimiento.populate('producto', 'nombre precioCompra');
     await movimiento.populate('usuario', 'nombre');
 
     res.status(201).json(movimiento);
@@ -128,7 +128,7 @@ router.put('/:id', async (req, res) => {
     movimiento.cantidad = cantidad;
     movimiento.nota = nota || movimiento.nota;
     await movimiento.save();
-    await movimiento.populate('producto', 'nombre');
+    await movimiento.populate('producto', 'nombre precioCompra');
     await movimiento.populate('usuario', 'nombre');
 
     res.json(movimiento);
